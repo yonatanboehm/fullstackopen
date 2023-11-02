@@ -14,16 +14,25 @@ const Button = (props) => (
   </button>
 )
 
-const Stats = ({ good, neutral, bad, all }) => (
-  <div>
-    <p>good: {good}</p>
-    <p>neutral: {neutral}</p>
-    <p>bad: {bad}</p>
-    <p>all: {all}</p>
-    <p>average: {all == 0 ? 0 : (good - bad)/all}</p>
-    <p>positive: {all == 0 ? 0 : 100*(good/all)}%</p>
-  </div>
-)
+const Stats = ({ good, neutral, bad, all }) => {
+  if (all == 0) {
+    return (
+      <div>
+        <p>No feedback given</p>
+    </div> 
+    )
+  }
+  return (
+    <div>
+      <p>good: {good}</p>
+      <p>neutral: {neutral}</p>
+      <p>bad: {bad}</p>
+      <p>all: {all}</p>
+      <p>average: {all == 0 ? 0 : (good - bad)/all}</p>
+      <p>positive: {all == 0 ? 0 : 100*(good/all)}%</p>
+    </div> 
+  )
+}
 
 const App = () => {
   const [good, setGood] = useState(0)
