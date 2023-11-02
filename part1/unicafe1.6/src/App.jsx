@@ -14,6 +14,12 @@ const Button = (props) => (
   </button>
 )
 
+const StatisticLine = ({ name, stat }) => (
+  <div>
+    <p>{name}: {stat}</p>
+  </div>
+)
+
 const Stats = ({ good, neutral, bad, all }) => {
   if (all == 0) {
     return (
@@ -24,12 +30,12 @@ const Stats = ({ good, neutral, bad, all }) => {
   }
   return (
     <div>
-      <p>good: {good}</p>
-      <p>neutral: {neutral}</p>
-      <p>bad: {bad}</p>
-      <p>all: {all}</p>
-      <p>average: {all == 0 ? 0 : (good - bad)/all}</p>
-      <p>positive: {all == 0 ? 0 : 100*(good/all)}%</p>
+      <StatisticLine name="good" stat={good} />
+      <StatisticLine name="neutral" stat={neutral} />
+      <StatisticLine name="bad" stat={bad} />
+      <StatisticLine name="all" stat={all} />
+      <StatisticLine name="average" stat={all == 0 ? 0 : (good - bad)/all} />
+      <StatisticLine name="positive" stat={all == 0 ? 0 : 100*(good/all) + "%"} />
     </div> 
   )
 }
