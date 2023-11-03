@@ -18,7 +18,10 @@ const App = () => {
     event.preventDefault()
     const nameObject = {
       name: newName,
-      id: persons.length + 1
+    }
+    if (persons.map(person => person.name).includes(newName)) {
+      alert(`${newName} is already added to phonebook`)
+      return
     }
     setPersons(persons.concat(nameObject))
     setNewName('')
@@ -42,7 +45,7 @@ const App = () => {
       <h2>Numbers</h2>
       <ul>
         {persons.map(person =>
-          <Name key={person.id} name={person.name} />
+          <Name key={person.name} name={person.name}/>
         )}
       </ul>
     </div>
