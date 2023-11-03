@@ -6,6 +6,53 @@ const Name = ({ name, number }) => {
   )
 }
 
+const Filter = ({ newSearch, handleSearch }) => {
+  return (
+    <div>
+      filter shown with: <input 
+        value={newSearch}
+        autoFocus
+        onChange={handleSearch}
+        placeholder='Search name' />
+    </div>
+  )
+}
+
+const Form = (form) => {
+  return (
+    <form onSubmit={form.addName}>
+      <div>
+        name: <input 
+        value={form.newName}
+        onChange={form.handleNameChange}
+        placeholder='Enter name' />
+      </div>
+      <div>
+        number: <input 
+        value={form.newNumber}
+        onChange={form.handleNumberChange}
+        placeholder='Enter number' />
+      </div>
+      <div>
+        <button type="submit">add</button>
+      </div>
+    </form>
+  )
+}
+
+const Persons = ({searchedNames}) => {
+  return (
+    <div>
+      <ul>
+        {searchedNames.map(person =>
+            <Name key={person.name} name={person.name} number={person.number}/>
+        )}
+      </ul>
+    </div>
+  )
+}
+
+
 const App = () => {
   const [persons, setPersons] = useState([
     { name: 'Arto Hellas', number: '040-123456', id: 1 },
@@ -49,37 +96,17 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-      <div>
-        filter shown with: <input 
-          value={newSearch}
-          autoFocus
-          onChange={handleSearch}
-          placeholder='Search name' />
-      </div>
+      <Filter value={newSearch} handleSearch={handleSearch}/>
       <h2>Add a new:</h2>
-      <form onSubmit={addName}>
-        <div>
-          name: <input 
-          value={newName}
-          onChange={handleNameChange}
-          placeholder='Enter name' />
-        </div>
-        <div>
-          number: <input 
-          value={newNumber}
-          onChange={handleNumberChange}
-          placeholder='Enter number' />
-        </div>
-        <div>
-          <button type="submit">add</button>
-        </div>
-      </form>
+      <Form 
+        addName={addName} 
+        newName={newName} 
+        handleNameChange={handleNameChange} 
+        newNumber={newNumber} 
+        handleNumberChange={handleNumberChange}
+      />
       <h2>Numbers</h2>
-      <ul>
-        {searchedNames.map(person =>
-            <Name key={person.name} name={person.name} number={person.number}/>
-        )}
-      </ul>
+      <Persons searchedNames={searchedNames} />
     </div>
   )
 }
