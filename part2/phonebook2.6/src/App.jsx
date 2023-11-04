@@ -92,7 +92,16 @@ const App = () => {
       number: newNumber
     }
     if (persons.map(person => person.name).includes(newName)) {
-      alert(`${newName} is already added to phonebook`)
+      if (window.confirm(`${newName} is already added to the phonebook, replace the old number with a new one?`)) {
+        personServices
+          .update(persons.find(p => p.name === newName).id, personObject)
+          .then(response => {
+            setPersons(persons.map(person => person.name !== newName ? person : response))
+            setNewName('')
+            setNewNumber('')
+            return
+          })
+      }
       return
     }
     
