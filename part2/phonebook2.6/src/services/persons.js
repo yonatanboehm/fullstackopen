@@ -6,4 +6,15 @@ const create = newObject => {
     return request.then(response => response.data)
 }
 
-export default { create }
+const deletePerson = id => { 
+    axios.delete(`http://localhost:3001/persons/${id}`)
+        .then(response => {
+        console.log(`Deleted person with ID ${id}`);
+        })
+        .catch(error => {
+        console.error(error);
+        });
+    return
+}
+
+export default { create, deletePerson }

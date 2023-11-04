@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
-import create from './services/persons'
+import personServices from './services/persons'
 
-const Name = ({ name, number }) => {
+const Name = ({ id, name, number, removePerson }) => {
   return (
-    <li>{name} {number}</li>
+    <div>
+      <li>{name} {number} <button onClick={() => removePerson(id)}>delete</button></li>
+    </div>
   )
 }
 
@@ -42,12 +44,12 @@ const Form = (form) => {
   )
 }
 
-const Persons = ({searchedNames}) => {
+const Persons = ({searchedNames, removePerson}) => {
   return (
     <div>
       <ul>
         {searchedNames.map(person =>
-            <Name key={person.name} name={person.name} number={person.number}/>
+            <Name key={person.name} id={person.id} name={person.name} number={person.number} removePerson={removePerson}/>
         )}
       </ul>
     </div>
@@ -94,14 +96,21 @@ const App = () => {
       return
     }
     
-    create
+    personServices
       .create(personObject)
       .then(response => {
         setPersons(persons.concat(response))
         setNewName('')
         setNewNumber('')
       })
-
+  }
+  
+  const removePerson = (id) => {
+    if(window.confirm(`Delete ${persons.find(person => person.id === id).name}?`)) {
+      personServices
+        .deletePerson(id)
+      setPersons(persons.filter(person => person.id !== id))
+    }
   }
 
   return (
@@ -117,7 +126,9 @@ const App = () => {
         handleNumberChange={handleNumberChange}
       />
       <h2>Numbers</h2>
-      <Persons searchedNames={searchedNames} />
+      <Persons 
+        searchedNames={searchedNames}
+        removePerson={removePerson} />
     </div>
   )
 }
