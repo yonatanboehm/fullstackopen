@@ -3,6 +3,7 @@ import axios from 'axios'
 import personServices from './services/persons'
 
 const Notification = (message) => {
+
   if (message.message === null) {
     return null
   }
