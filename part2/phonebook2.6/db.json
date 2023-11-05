@@ -6,29 +6,24 @@
       "id": 1
     },
     {
-      "name": "Ada Lovelace",
-      "number": "6969-6969",
-      "id": 2
-    },
-    {
-      "name": "Dan Abramov",
-      "number": "12-43-234345",
-      "id": 3
-    },
-    {
       "name": "Mary Poppendieck",
       "number": "39-23-6423122",
       "id": 4
     },
     {
-      "name": "amichai",
-      "number": "66666666",
-      "id": 8
-    },
-    {
       "name": "Shlomo Kelter",
       "number": "888-34567890",
       "id": 9
+    },
+    {
+      "name": "Ori Levy",
+      "number": "111-344-(9667)",
+      "id": 10
+    },
+    {
+      "name": "Ido Herman",
+      "number": "052-488-5656",
+      "id": 12
     }
   ]
 }
