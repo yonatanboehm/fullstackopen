@@ -2,15 +2,15 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 import countryService from './services/countries'
 
-const CountryName = ({ country }) => {
+const CountryName = ({ country, showCountry }) => {
   return (
     <div>
-      <li>{country}</li>
+      <li>{country} <button value={country} onClick={showCountry}>show</button></li>
     </div>
   )
 }
 
-const CountryList = ({ searchedCountries }) => {
+const CountryList = ({ searchedCountries, showCountry }) => {
   if (searchedCountries.length === 1) {
     return (
       <div>
@@ -23,7 +23,7 @@ const CountryList = ({ searchedCountries }) => {
       <div>
         <ul>
           {searchedCountries.map(country =>
-            <CountryName key={country} country={country}/>
+            <CountryName key={country} country={country} showCountry={showCountry}/>
           )}
         </ul>
       </div>
@@ -42,6 +42,7 @@ const CountryData = ({ searchedCountries }) => {
 
   const [country, setCountry] = useState(null)
   useEffect(() => {
+    console.log('loading country...')
     countryService
       .getCountry(searchedCountries[0])
       .then(countryData => {
@@ -87,6 +88,10 @@ const App = () => {
     setNewSearch(event.target.value)
   }
 
+  const showCountry = (event) => {
+    setNewSearch(event.target.value)
+  }
+
   if (countries === null) {
     return (
       <div>
@@ -98,7 +103,7 @@ const App = () => {
   return (
     <div>
       find countries <input onChange={searchCountry} value={newSearch}/>
-      <CountryList searchedCountries={searchedCountries} />
+      <CountryList searchedCountries={searchedCountries} showCountry={showCountry}/>
     </div>
   )
 }
