@@ -8,12 +8,12 @@
     {
       "id": 2,
       "content": "Browser can execute only JavaScript",
-      "important": true
+      "important": false
     },
     {
       "id": 3,
       "content": "GET and POST are the most important methods of HTTP protocol",
-      "important": false
+      "important": true
     },
     {
       "content": "Eli is the gayest person alive",
@@ -27,7 +27,7 @@
     },
     {
       "content": "Eli is super gay",
-      "important": false,
+      "important": true,
       "id": 6
     },
     {
@@ -39,6 +39,11 @@
       "content": "boo!",
       "important": false,
       "id": 8
+    },
+    {
+      "content": "I'm eating sh'chorot",
+      "important": true,
+      "id": 9
     }
   ]
 }

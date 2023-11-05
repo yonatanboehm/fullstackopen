@@ -2,6 +2,18 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 import personServices from './services/persons'
 
+const Notification = ({ message, type }) => {
+  if (message === null) {
+    return null
+  }
+
+  return (
+    <div className='notif'>
+      {message}
+    </div>
+  )
+}
+
 const Name = ({ id, name, number, removePerson }) => {
   return (
     <div>
@@ -60,8 +72,10 @@ const Persons = ({searchedNames, removePerson}) => {
 const App = () => {
   const [persons, setPersons] = useState([])
   const [newName, setNewName] = useState('')
+  const [message, setMessage] = useState(null)
   const [newNumber, setNewNumber] = useState('')
   const [newSearch, setNewSearch] = useState('')
+
   useEffect(() => {
     console.log('effect')
     axios
@@ -99,6 +113,12 @@ const App = () => {
             setPersons(persons.map(person => person.name !== newName ? person : response))
             setNewName('')
             setNewNumber('')
+            setMessage(
+              `Added ${personObject.name}`
+            )
+            setTimeout(() => {
+              setMessage(null)
+            }, 5000)
             return
           })
       }
@@ -111,6 +131,12 @@ const App = () => {
         setPersons(persons.concat(response))
         setNewName('')
         setNewNumber('')
+        setMessage(
+          `Added ${personObject.name}`
+        )
+        setTimeout(() => {
+          setMessage(null)
+        }, 5000)
       })
   }
   
@@ -125,6 +151,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification message={message} />
       <Filter value={newSearch} handleSearch={handleSearch}/>
       <h2>Add a new:</h2>
       <Form 
