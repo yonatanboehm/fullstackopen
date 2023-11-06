@@ -2,6 +2,26 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 import countryService from './services/countries'
 
+const CountryWeather = (weather) => {
+  if (weather.wind === undefined) {
+    return (
+      <div>
+        <h1>Weather not found</h1>
+      </div>
+    )
+  }
+  return (
+    <div>
+      <h1>Weather in {weather.capital}</h1>
+      <div>temperature: {weather.temp.toFixed(2)} Celsius</div>
+      <div>
+        <img src={`https://openweathermap.org/img/wn/${weather.icon[0].icon}@2x.png`} alt={weather.icon[0].description}></img>
+      </div>
+      <div>wind: {weather.wind} m/s</div>
+    </div>
+  )
+}
+
 const CountryName = ({ country, showCountry }) => {
   return (
     <div>
@@ -41,19 +61,27 @@ const CountryList = ({ searchedCountries, showCountry }) => {
 const CountryData = ({ searchedCountries }) => {
 
   const [country, setCountry] = useState(null)
+  const [countryWeather, setCountryWeather] = useState(null)
   useEffect(() => {
     console.log('loading country...')
     countryService
       .getCountry(searchedCountries[0])
       .then(countryData => {
         setCountry(countryData)
+        console.log(countryData)
+        countryService
+          .getCountryWeather(countryData.capital)
+          .then(countryWeatherData => {
+            console.log(countryWeatherData)
+            setCountryWeather(countryWeatherData)
+    })
       })
   }, [])
 
-  if (!country) { 
+  if (!country || !countryWeather) { 
     return null 
   }
-  console.log(country)
+
   return (
     <div>
       <h1>{country.name.common}</h1>
@@ -64,6 +92,12 @@ const CountryData = ({ searchedCountries }) => {
         {Object.values(country.languages).map(language => <li key={language}>{language}</li>)}
       </ul>
       <img src={country.flags.png} alt={country.flags.alt}></img>
+      <CountryWeather 
+        capital={country.capital}
+        temp={countryWeather?.main?.temp - 273} 
+        icon={countryWeather?.weather}
+        wind={countryWeather?.wind?.speed}
+      />
     </div>
   )
 }
