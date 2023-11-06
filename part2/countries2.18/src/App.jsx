@@ -91,7 +91,7 @@ const CountryData = ({ searchedCountries }) => {
       <ul>
         {Object.values(country.languages).map(language => <li key={language}>{language}</li>)}
       </ul>
-      <img src={country.flags.png} alt={country.flags.alt}></img>
+      <img className='flagImg' src={country.flags.png} alt={country.flags.alt}></img>
       <CountryWeather 
         capital={country.capital}
         temp={countryWeather?.main?.temp - 273} 
