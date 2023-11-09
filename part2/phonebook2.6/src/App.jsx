@@ -116,7 +116,7 @@ const App = () => {
             setNewName('')
             setNewNumber('')
             setMessage({
-              message: `Added ${personObject.name}`,
+              message: `Changed number for ${personObject.name}`,
               type: true
             })
             setTimeout(() => {
