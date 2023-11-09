@@ -79,7 +79,11 @@ const CountryData = ({ searchedCountries }) => {
   }, [])
 
   if (!country || !countryWeather) { 
-    return null 
+    return (
+      <div>
+        Loading country...
+      </div>
+    )
   }
 
   return (

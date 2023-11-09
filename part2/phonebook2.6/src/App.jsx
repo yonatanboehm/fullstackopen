@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import axios from 'axios'
 import personServices from './services/persons'
 
 const Notification = (message) => {
@@ -80,10 +79,11 @@ const App = () => {
 
   useEffect(() => {
     console.log('effect')
-    axios
-      .get('http://localhost:3001/persons').then(response => {
+    personServices
+      .getAll()
+      .then(response => {
         console.log('promise fulfilled')
-        setPersons(response.data)
+        setPersons(response)
       })
   }, [])
 
