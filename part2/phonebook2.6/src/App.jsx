@@ -107,36 +107,36 @@ const App = () => {
       name: newName,
       number: newNumber
     }
-    if (persons.map(person => person.name).includes(newName)) {
-      if (window.confirm(`${newName} is already added to the phonebook, replace the old number with a new one?`)) {
-        personServices
-          .update(persons.find(p => p.name === newName).id, personObject)
-          .then(response => {
-            setPersons(persons.map(person => person.name !== newName ? person : response))
-            setNewName('')
-            setNewNumber('')
-            setMessage({
-              message: `Changed number for ${personObject.name}`,
-              type: true
-            })
-            setTimeout(() => {
-              setMessage({ message: null, type: null})
-            }, 5000)
-            return
-          })
-          .catch(error => {
-            setMessage({
-              message: `Information of ${personObject.name} has already been removed from the server`,
-              type: false
-            })
-            setTimeout(() => {
-              setMessage({ message: null, type: null})
-            }, 5000)
-            return
-          })
-      }
-      return
-    }
+    // if (persons.map(person => person.name).includes(newName)) {
+    //   if (window.confirm(`${newName} is already added to the phonebook, replace the old number with a new one?`)) {
+    //     personServices
+    //       .update(persons.find(p => p.name === newName).id, personObject)
+    //       .then(response => {
+    //         setPersons(persons.map(person => person.name !== newName ? person : response))
+    //         setNewName('')
+    //         setNewNumber('')
+    //         setMessage({
+    //           message: `Changed number for ${personObject.name}`,
+    //           type: true
+    //         })
+    //         setTimeout(() => {
+    //           setMessage({ message: null, type: null})
+    //         }, 5000)
+    //         return
+    //       })
+    //       .catch(error => {
+    //         setMessage({
+    //           message: `Information of ${personObject.name} has already been removed from the server`,
+    //           type: false
+    //         })
+    //         setTimeout(() => {
+    //           setMessage({ message: null, type: null})
+    //         }, 5000)
+    //         return
+    //       })
+    //   }
+    //   return
+    // }
     
     personServices
       .create(personObject)
