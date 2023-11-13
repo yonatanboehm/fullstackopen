@@ -126,7 +126,7 @@ const App = () => {
           })
           .catch(error => {
             setMessage({
-              message: `Information of ${personObject.name} has already been removed from the server`,
+              message: error.response.data.error,
               type: false
             })
             setTimeout(() => {
@@ -151,6 +151,16 @@ const App = () => {
         setTimeout(() => {
           setMessage({ message: null, type: null})
         }, 5000)
+      })
+      .catch(error => {
+        setMessage({
+          message: error.response.data.error,
+          type: false
+        })
+        setTimeout(() => {
+          setMessage({ message: null, type: null})
+        }, 5000)
+        return
       })
   }
   

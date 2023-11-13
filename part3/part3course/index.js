@@ -10,7 +10,7 @@ const Note = require('./models/note')
 app.get('/', (request, response) => {
   response.send('<h1>Hello World!</h1>')
 })
-  
+
 app.get('/api/notes', (request, response) => {
   Note.find({}).then(result => {
     response.json(result)
@@ -30,8 +30,8 @@ app.get('/api/notes/:id', (request, response, next) => {
 })
 
 app.delete('/api/notes/:id', (request, response, next) => {
-  Note.findByIdAndRemove(request.params.id)
-    .then(result => {
+  Note.findByIdAndDelete(request.params.id)
+    .then(() => {
       response.status(204).end()
     })
     .catch(error => next(error))
@@ -73,7 +73,7 @@ const errorHandler = (error, request, response, next) => {
   console.error(error.message)
   if (error.name === 'CastError') {
     return response.status(400).send({ error: 'malformatted id' })
-  } 
+  }
   next(error)
 }
 
@@ -83,6 +83,3 @@ const PORT = process.env.PORT
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
 })
-
-
-  
